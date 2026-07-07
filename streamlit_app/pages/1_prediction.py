@@ -2,15 +2,17 @@ import streamlit as st
 import pandas as pd
 import sys
 from pathlib import Path
+import shap
+import matplotlib.pyplot as plt
 
 root = Path(__file__).resolve().parents[2]  
 sys.path.insert(0, str(root))
 
-print("Racine détectée :", root)  
+ 
 
 from src.prediction import predict_student
 from src.validation import validation
-
+from src.shap_utils import explain_student,shap_summary
 from src.options import(
     GENDER_OPTIONS,
     MARITAL_STATUS_OPTIONS,
@@ -220,3 +222,19 @@ if st.button("🎯 Prédire le risque de décrochage",use_container_width=True):
             st.success("Pas de décrochage prédit")
 
         st.metric(label="Probabilité de décrochage",value=f"{round(probability*100,2)}%",border=True)
+
+
+
+        
+        shap_values = explain_student(user_inputs)
+        shap.plots.waterfall(shap_values[0], show=False)
+
+        st.pyplot(plt.gcf())
+
+        plt.clf()
+
+
+        shap_df=shap_summary(shap_values)
+        shap_df=shap_df.rename(columns={"Contribution SHAP":"Impact sur la prédiction","Variable":"Facteur"})
+
+        st.dataframe(shap_df[["Facteur","Impact sur la prédiction","Effet"]].head(10),use_container_width=True)
