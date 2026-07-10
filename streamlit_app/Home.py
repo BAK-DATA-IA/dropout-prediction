@@ -1,4 +1,7 @@
 import streamlit as st
+from theme import apply_theme
+
+
 
 st.set_page_config(
     page_title="Student Dropout Prediction",
@@ -6,7 +9,9 @@ st.set_page_config(
     layout="wide"
 )
 
+
 st.title("🎓 Student Dropout Prediction")
+
 
 st.write("""
 This application predicts the risk of student dropout using a Machine Learning
@@ -50,3 +55,4 @@ st.divider()
 st.subheader("💡 Tip")
 
 st.write(""" For the best results, complete all required fields with accurate information.""")
+

@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 import shap
 import matplotlib.pyplot as plt
-
+from theme import apply_theme
 root = Path(__file__).resolve().parents[2]  
 sys.path.insert(0, str(root))
 
@@ -28,9 +28,14 @@ from src.options import(
     YES_NO_OPTIONS
 )
 
+from src.Database.database import save_prediction,create_table
+
+create_table()
+
 st.set_page_config(page_title="Prediction",
                    page_icon="🎓",
                    layout="wide")
+
 
 st.title("🎓 Prédiction du décrochage étudiant")
 
@@ -223,6 +228,9 @@ if st.button("🎯 Prédire le risque de décrochage",use_container_width=True):
 
         st.metric(label="Probabilité de décrochage",value=f"{round(probability*100,2)}%",border=True)
 
+        prediction_label="Abandon" if prediction==1 else "Succès"
+        
+        save_prediction(user_inputs["Course"][0],prediction_label, float(probability))
 
 
         
