@@ -1,9 +1,12 @@
 import sqlite3
 from datetime import datetime
 import pandas as pd
+from pathlib import Path
+
+DB_PATH = Path(__file__).resolve().parent / "student_dropout.db"
 
 def create_connection():
-    return sqlite3.connect("../src/Database/student_dropout.db")
+    return sqlite3.connect(DB_PATH)
 
 
 def create_table():

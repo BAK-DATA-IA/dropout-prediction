@@ -1,13 +1,14 @@
 import pandas as pd
 import streamlit as st
+from pathlib import Path
 
-
+DATA_PATH = Path(__file__).resolve().parents[1] / "data" / "data_preprocessed.csv"
 
 
 
 @st.cache_data
 def load_dataFrame():
-    data=pd.read_csv("../data/data_preprocessed.csv")
+    data = pd.read_csv(DATA_PATH)
     return data
 
 

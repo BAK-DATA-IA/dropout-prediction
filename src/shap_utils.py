@@ -5,8 +5,9 @@ import pandas as pd
 import numpy as np
 
 from src.prediction import load_pipeline, create_features
+from pathlib import Path
 
-
+DATA_PATH = Path(__file__).resolve().parents[1] / "data" / "X_train.pkl"
 
 
 
@@ -14,7 +15,9 @@ from src.prediction import load_pipeline, create_features
 
 @st.cache_data
 def load_background_data():
-    return joblib.load("../data/X_train.pkl")
+    return joblib.load(DATA_PATH)
+
+
 
 
 @st.cache_resource

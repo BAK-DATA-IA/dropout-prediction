@@ -1,9 +1,9 @@
 import pandas as pd
 
+from pathlib import Path
 
-DATA=pd.read_csv("../data/data_preprocessed.csv")
-
-
+DATA_PATH = Path(__file__).resolve().parents[1] / "data" / "data_preprocessed.csv"
+DATA = pd.read_csv(DATA_PATH)
 
 GENDER_OPTIONS=DATA['Gender'].unique().tolist()
 MARITAL_STATUS_OPTIONS=["__Selectionnez le statut matrimoniale__"]+DATA['Marital_status_grouped'].unique().tolist()

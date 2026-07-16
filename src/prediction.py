@@ -1,14 +1,14 @@
 
 import joblib
 import streamlit as st
+from pathlib import Path
 
+MODEL_PATH = Path(__file__).resolve().parents[1] / "models" / "pipeline_dropout.pkl"
 
 @st.cache_resource
 def load_pipeline():
-    pipeline = joblib.load("../models/pipeline_dropout.pkl")
+    pipeline = joblib.load(MODEL_PATH)
     return pipeline
-
-
 
 def create_features(user_inputs):
     user_inputs['no_academic_activity']=((user_inputs['Curricular units 1st sem (grade)']==0) & 
